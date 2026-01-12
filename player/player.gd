@@ -4,35 +4,41 @@ class_name Player
 @export_range(750, 2500) var thrust := 1000.0
 @export var torque_thrust := 100.0
 
+var transitioning := false
+
 func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("boost"):
-		apply_central_force(basis.y * delta * thrust)
-	
-	if Input.is_action_pressed("rotate_left"):
-		apply_torque(Vector3(0, 0, delta * torque_thrust))
-	
-	if Input.is_action_pressed("rotate_right"):
-		apply_torque(Vector3(0, 0, -delta * torque_thrust))
+	if not transitioning:
+		if Input.is_action_pressed("boost"):
+			apply_central_force(basis.y * delta * thrust)
+		
+		if Input.is_action_pressed("rotate_left"):
+			apply_torque(Vector3(0, 0, delta * torque_thrust))
+		
+		if Input.is_action_pressed("rotate_right"):
+			apply_torque(Vector3(0, 0, -delta * torque_thrust))
 
 func crash_sequence() -> void:
+	transitioning = true
 	print("KABOOM")
-	await get_tree().create_timer(2.5).timeout
+	await get_tree().create_timer(1).timeout
 	get_tree().reload_current_scene.call_deferred()
-	
+
 func level_complete(next_level_path) -> void:
-	await get_tree().create_timer(2.5).timeout
+	transitioning = true
+	await get_tree().create_timer(1).timeout
 	get_tree().change_scene_to_file.call_deferred(next_level_path)
 
 
 
 func _on_body_entered(body: Node) -> void:
-	if "Goal" in body.get_groups():
-		print("you win")
-		if body.file_path:
-			level_complete(body.file_path)
-	
-	if "Hazard" in body.get_groups():
-		crash_sequence()
+	if not transitioning:
+		if "Goal" in body.get_groups():
+			print("you win")
+			if body.file_path:
+				level_complete(body.file_path)
+		
+		if "Hazard" in body.get_groups():
+			crash_sequence()
