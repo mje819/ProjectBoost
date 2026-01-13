@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4ebypukt371f"]
+[gd_scene load_steps=11 format=3 uid="uid://b4ebypukt371f"]
 
 [ext_resource type="Script" uid="uid://c6bmqcarenmnn" path="res://player/player.gd" id="1_oul6g"]
 [ext_resource type="AudioStream" uid="uid://dals0oh3sex8u" path="res://assets/ProjectBoost_Audio/SFX - Death Explosion.ogg" id="2_rkbax"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://assets/ProjectBoost_Audio/booster_particles.tscn" id="5_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://io1kwqkq8fjd" path="res://particles/explosion_particles.tscn" id="6_boad6"]
 [ext_resource type="PackedScene" uid="uid://cl67e0w22g27" path="res://particles/success_particles.tscn" id="7_rgyib"]
+[ext_resource type="PackedScene" uid="uid://bpxbn5uuan6wu" path="res://player/ship.tscn" id="8_rgyib"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_g1dw6"]
 
@@ -25,6 +26,7 @@ thrust = 1250.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0028431416, 0)
+visible = false
 mesh = SubResource("CylinderMesh_g1dw6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -54,5 +56,8 @@ emitting = false
 [node name="ExplosionParticles" parent="." instance=ExtResource("6_boad6")]
 
 [node name="SuccessParticles" parent="." instance=ExtResource("7_rgyib")]
+
+[node name="Body" parent="." instance=ExtResource("8_rgyib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
