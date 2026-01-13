@@ -36,7 +36,7 @@ func crash_sequence() -> void:
 func level_complete(next_level_path) -> void:
 	transitioning = true
 	$SuccessAudio.play()
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2.5).timeout
 	get_tree().change_scene_to_file.call_deferred(next_level_path)
 
 
