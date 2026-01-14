@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bv2432hmt86c5"]
+
+[ext_resource type="Script" uid="uid://equur6yesod2" path="res://ui/ui.gd" id="1_nb4k0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ofb81"]
+font_size = 48
+
+[node name="UI" type="CanvasLayer" groups=["UI"]]
+script = ExtResource("1_nb4k0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="FuelLabel" type="Label" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+text = "FUEL: 100"
+label_settings = SubResource("LabelSettings_ofb81")

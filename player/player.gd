@@ -3,6 +3,9 @@ class_name Player
 
 @export_range(750, 2500) var thrust := 1000.0
 @export var torque_thrust := 100.0
+@export var starting_fuel := 200
+
+var transitioning := false
 
 @onready var rocket_audio: AudioStreamPlayer3D = $RocketAudio
 @onready var main_booster: GPUParticles3D = $MainBooster
@@ -11,15 +14,22 @@ class_name Player
 @onready var explosion_particles: GPUParticles3D = $ExplosionParticles
 @onready var success_particles: GPUParticles3D = $SuccessParticles
 
-var transitioning := false
+var ui : CanvasLayer
+
+var fuel : float:
+	set(new_fuel):
+		fuel = new_fuel
+		ui.update_fuel(int(new_fuel))
 
 func _ready() -> void:
-	pass
+	ui = get_tree().get_first_node_in_group("UI")
+	fuel = starting_fuel
 
 func _process(delta: float) -> void:
 	if not transitioning:
-		if Input.is_action_pressed("boost"):
+		if Input.is_action_pressed("boost") and fuel > 0:
 			apply_central_force(basis.y * delta * thrust)
+			fuel -= 0.5
 			if not rocket_audio.is_playing():
 				rocket_audio.play()
 			main_booster.emitting = true

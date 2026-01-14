@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bpxbn5uuan6wu"]
+[gd_scene load_steps=6 format=3 uid="uid://bpxbn5uuan6wu"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_boad6"]
 top_radius = 0.2
@@ -16,6 +16,9 @@ size = Vector3(0.5, 0.5, 0.04)
 [sub_resource type="CylinderMesh" id="CylinderMesh_hg6s5"]
 top_radius = 0.0
 bottom_radius = 0.2
+height = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jn86c"]
 height = 0.5
 
 [node name="Body" type="MeshInstance3D"]
@@ -41,3 +44,7 @@ mesh = SubResource("PrismMesh_rgyib")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9995689, 0)
 mesh = SubResource("CylinderMesh_hg6s5")
 skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12482923, 0)
+mesh = SubResource("CylinderMesh_jn86c")

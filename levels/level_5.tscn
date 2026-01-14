@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://c0beeot4wjq8j"]
+
+[ext_resource type="PackedScene" uid="uid://bv2432hmt86c5" path="res://ui/ui.tscn" id="1_26h77"]
+[ext_resource type="PackedScene" uid="uid://0m62051j241u" path="res://levels/floor.tscn" id="1_dhnqt"]
+[ext_resource type="Script" uid="uid://upmmp4dh8avm" path="res://levels/landing_pad.gd" id="2_r02ll"]
+[ext_resource type="PackedScene" uid="uid://b4ebypukt371f" path="res://player/player.tscn" id="3_26h77"]
+[ext_resource type="PackedScene" uid="uid://cj5blxe6bec8u" path="res://levels/moving_obstacle.tscn" id="4_r02ll"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umreq"]
+albedo_color = Color(0.47614044, 0.43779722, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80vhd"]
+albedo_color = Color(0, 1, 0.36666656, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r02ll"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="UI" parent="." instance=ExtResource("1_26h77")]
+
+[node name="Floor" parent="." instance=ExtResource("1_dhnqt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
+
+[node name="LaunchPad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.2, 0)
+use_collision = true
+size = Vector3(2, 0.4, 2)
+material = SubResource("StandardMaterial3D_umreq")
+
+[node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.2, 0)
+use_collision = true
+size = Vector3(2, 0.4, 2)
+material = SubResource("StandardMaterial3D_80vhd")
+script = ExtResource("2_r02ll")
+file_path = "uid://c4w4lg8cf4383"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.94551855, 0.32556814, 0, -0.32556814, 0.94551855, 0, 5.304, 7.275)
+
+[node name="Player" parent="." instance=ExtResource("3_26h77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.4909744, 1.4020116, -0.022201061)
+
+[node name="MovingObstacle" parent="." instance=ExtResource("4_r02ll")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 1.6936948, 0)
+destination = Vector3(4.5, 4.5, 0)
+duration = 2.5
+
+[node name="Obstacle" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.939436, 1.4020889, 0)
+use_collision = true
+size = Vector3(2, 2, 1)
+material = SubResource("StandardMaterial3D_r02ll")
+
+[node name="Obstacle2" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 3.452, 0.522, 0)
+use_collision = true
+size = Vector3(2, 2, 1)
+material = SubResource("StandardMaterial3D_r02ll")

@@ -1,23 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2so3p8oeuues"]
+[gd_scene load_steps=8 format=3 uid="uid://c2so3p8oeuues"]
 
+[ext_resource type="PackedScene" uid="uid://0m62051j241u" path="res://levels/floor.tscn" id="1_0srwa"]
 [ext_resource type="PackedScene" uid="uid://b4ebypukt371f" path="res://player/player.tscn" id="1_mi4ay"]
 [ext_resource type="Script" uid="uid://upmmp4dh8avm" path="res://levels/landing_pad.gd" id="1_pqqg8"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_umreq"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-
-[sub_resource type="Sky" id="Sky_80vhd"]
-sky_material = SubResource("ProceduralSkyMaterial_umreq")
-
-[sub_resource type="Environment" id="Environment_hjsbj"]
-background_mode = 2
-sky = SubResource("Sky_80vhd")
-tonemap_mode = 2
-glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yy828"]
-albedo_color = Color(0.22, 0.16133334, 0.043999996, 1)
+[ext_resource type="PackedScene" uid="uid://bv2432hmt86c5" path="res://ui/ui.tscn" id="1_v5uil"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mi4ay"]
 albedo_color = Color(1, 0, 0, 1)
@@ -30,18 +16,10 @@ albedo_color = Color(0, 1, 0.36666656, 1)
 
 [node name="Level" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
-shadow_enabled = true
+[node name="UI" parent="." instance=ExtResource("1_v5uil")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_hjsbj")
-
-[node name="Floor" type="CSGBox3D" parent="." groups=["Hazard"]]
+[node name="Floor" parent="." instance=ExtResource("1_0srwa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0)
-use_collision = true
-size = Vector3(30, 8, 5)
-material = SubResource("StandardMaterial3D_yy828")
 
 [node name="Obstacle" type="CSGBox3D" parent="." groups=["Hazard"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5140326, 0)
